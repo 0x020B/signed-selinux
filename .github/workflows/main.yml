@@ -218,7 +218,7 @@ jobs:
       - name: Remove old release
         uses: ame-yu/action-delete-latest-release@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_CUSTOM_SECRET_TOKEN }}
 
       - name: Release all packages
         uses: softprops/action-gh-release@v1
@@ -234,5 +234,5 @@ jobs:
             ${{ github.event.head_commit.message }}
             ```
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_CUSTOM_SECRET_TOKEN }}
   
