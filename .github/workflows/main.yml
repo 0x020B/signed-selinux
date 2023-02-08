@@ -16,6 +16,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build and install Arch Linux's SELinux support packages in a docker container
+        env:
+          PRIVEKEY: ${{ secrets.SELINUX_PRIVATE_KEY }}
         run: |
           mkdir -vp /startdir && \
           cp -Rv . /startdir && \
@@ -24,11 +26,13 @@ jobs:
           rm -rf /var/cache/pacman/pkg/* && \
           ln -sf /usr/share/zoneinfo/UTC /etc/localtime && \
           useradd -g users -m builduser && \
+          sudo -u builduser gpg --pinentry-mode loopback --import - <<< "$PRIVEKEY" && \
           echo 'builduser ALL=(ALL) NOPASSWD: /usr/bin/pacman' >> /etc/sudoers && \
           echo 'builduser ALL=(ALL) NOPASSWD: /usr/bin/sh -c { pacman --noconfirm --ask=4 -U sudo-selinux/sudo-selinux-*.pkg.tar.zst && if test -e /etc/sudoers.pacsave ; then mv /etc/sudoers.pacsave /etc/sudoers ; fi }' >> /etc/sudoers && \
           echo 'MAKEFLAGS="-j$(nproc)"' >> /etc/makepkg.conf && \
           echo 'BUILDDIR=/build' >> /etc/makepkg.conf && \
           echo 'LOGDEST=/logdest' >> /etc/makepkg.conf && \
+          echo 'GPGKEY=07C1003E46490054A20D3A8E250A4BA6630FD7F1' >> /etc/makepkg.conf && \
           mkdir -vp /packages /build /logdest && \
           chown -R builduser /startdir /packages /build /logdest && \
           sudo -u builduser /startdir/clean.sh && \
