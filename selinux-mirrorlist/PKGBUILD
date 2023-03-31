@@ -1,0 +1,19 @@
+# Maintainer: n0tr00t <selinux@n0tr00t.eu.org>
+pkgname=selinux-mirrorlist
+pkgver=20230219
+pkgrel=1
+pkgdesc="Selinux repo mirror list for use by pacman"
+arch=('any')
+url="https://github.com/n0tr00teuorg/signed-selinux/tree/master/selinux-mirrorlist"
+license=('GPL')
+source=("selinux-mirrorlist")
+md5sums=('414e7229163721a1961df934f8e20c92')
+sha1sums=('1ab9a3050d9ab20e23285b8a4ac44957c5f7cad6')
+sha384sums=('7922660250e5945b54f707da6b647297ab7483ccc809db44618c0a5e09db1894dc0e3c3674e60aa1c37a6c38a5f7c0e8')
+sha256sums=('0a1791c2cec787de3875dcf2896ab645446a778996b70419e7b4ec3f51648656')
+sha512sums=('e7ea0dd8ee9fa2e09661845b669a4c2a3a80c91692f35c645341dc51deb17f230b1cccce4905e764e94fd3c7be30b3244e591444cb9698a4f5333af8693cd5dd')
+validpgpkeys=('250A4BA6630FD7F1')
+
+package() {
+	install -Dm644 $srcdir/selinux-mirrorlist $pkgdir/etc/pacman.d/selinux-mirrorlist
+}
