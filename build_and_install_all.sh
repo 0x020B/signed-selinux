@@ -66,7 +66,7 @@ build() {
     then
         set -- "$@" --nocheck
     fi
-    (cd "./$1" && shift && makepkg -s -C --noconfirm "$@") || exit $?
+    (cd "./$1" && shift && makepkg -s -C --sign --noconfirm "$@") || exit $?
 }
 
 # Run an install command for a package which may conflict with a base package
@@ -174,6 +174,9 @@ build_and_install selinux-gui
 build_and_install selinux-dbus-config
 build_and_install selinux-sandbox
 
+# selinux mirrorlist
+build_and_install selinux-mirrorlist
+
 # setoubleshoot
 install_libreport
 #build_and_install setroubleshoot
@@ -239,7 +242,7 @@ build_and_install selinux-refpolicy-git
 build_nodeps() {
     rm -rf "./$1/src" "./$1/pkg"
     rm -f "./$1/"*.pkg.tar.zst "./$1/"*.pkg.tar.zst.sig
-    (cd "./$1" && shift && makepkg -d -C --noconfirm "$@") || exit $?
+    (cd "./$1" && shift && makepkg -d -C --sign --noconfirm "$@") || exit $?
 }
 
 build_nodeps base-selinux
