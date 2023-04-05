@@ -1,6 +1,6 @@
 # Maintainer: n0tr00t <selinux@n0tr00t.eu.org>
 pkgname=selinux-mirrorlist
-pkgver=20230219
+pkgver=20230405
 pkgrel=1
 pkgdesc="Selinux repo mirror list for use by pacman"
 arch=('any')
